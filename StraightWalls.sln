@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.489
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StraightWalls", "WindowsFormsApp1\StraightWalls.csproj", "{5837C0A2-496A-4447-A00A-9DAAB5AE23AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StraightWalls.API", "StraightWalls.API\StraightWalls.API.csproj", "{60257CE0-FCD9-4B06-BD05-0EAF9DACF8D0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5837C0A2-496A-4447-A00A-9DAAB5AE23AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5837C0A2-496A-4447-A00A-9DAAB5AE23AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5837C0A2-496A-4447-A00A-9DAAB5AE23AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5837C0A2-496A-4447-A00A-9DAAB5AE23AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60257CE0-FCD9-4B06-BD05-0EAF9DACF8D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60257CE0-FCD9-4B06-BD05-0EAF9DACF8D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60257CE0-FCD9-4B06-BD05-0EAF9DACF8D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60257CE0-FCD9-4B06-BD05-0EAF9DACF8D0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A902B93D-D927-4BE8-B0B3-0937AA28E2F1}
+	EndGlobalSection
+EndGlobal

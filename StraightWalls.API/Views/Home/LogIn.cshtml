@@ -1,0 +1,51 @@
+﻿@using StraightWalls.API.ViewModel
+@model LoginViewModel
+@{
+    ViewBag.Title = "LogIn";
+    Layout = null;
+}
+<html class="gr__getbootstrap_com" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Straight Walls</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/bootstrap-Litera.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="~/Content/signin.css" rel="stylesheet" />
+</head>
+<body class="text-center" data-gr-c-s-loaded="true" style="background:#a1a8ce">
+    @using (Html.BeginForm("Login", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-signin", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <h1 class="mb-3 font-weight-normal text-white">Sign in</h1>
+        if(ViewBag.Message != "")
+        {
+            <span class="alert-danger">@ViewBag.Message</span>
+        }
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(m => m.UserName, new { @class = "sr-only" })
+            <div class="col-md-12">
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "User name" })
+                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Password, new { @class = "sr-only" })
+            <div class="col-md-12">
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                <input type="submit" value="Log in" class="btn btn-lg btn-dark btn-block" />
+            </div>
+        </div>
+    }
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+</body>
+</html>

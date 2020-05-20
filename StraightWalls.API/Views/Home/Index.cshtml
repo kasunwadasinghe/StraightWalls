@@ -1,0 +1,47 @@
+﻿@using StraightWalls.API.ViewModel
+@model List<HolidayViewModel>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2 class="h2">Leave History</h2>
+        <table class="table table-responsive table-striped">
+            <thead>
+                <tr class="table-dark">
+                    <th>Applied On</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>No Days</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var row in Model)
+                {
+                    <tr>
+                        <td>@row.CreatedOn</td>
+                        <td>@row.From</td>
+                        <td>@row.To</td>
+                        <td>@row.NoDays</td>
+
+                        @if (row.isCanceled)
+                        {
+                            <td>Canceled</td>
+                        }
+                        else
+                        {
+                            <td>@row.Status</td>
+                        }
+                        @if (!row.isCanceled)
+                        {
+                            <td>@Html.ActionLink("Cancel", "CancelHoliday", "Home", new { id = row.HolidayId }, new { @class = "btn-link" })</td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

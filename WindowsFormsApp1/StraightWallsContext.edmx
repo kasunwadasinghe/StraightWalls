@@ -1,0 +1,358 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="StraightWallsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="department_id" />
+          </Key>
+          <Property Name="department_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Designation">
+          <Key>
+            <PropertyRef Name="designation_id" />
+          </Key>
+          <Property Name="designation_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="employee_id" />
+          </Key>
+          <Property Name="employee_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" />
+          <Property Name="address" Type="varchar" MaxLength="255" />
+          <Property Name="mobile" Type="varchar" MaxLength="100" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+          <Property Name="join_date" Type="date" />
+          <Property Name="department_id" Type="int" />
+          <Property Name="designation_id" Type="int" />
+          <Property Name="is_active" Type="bit" />
+        </EntityType>
+        <EntityType Name="HolidayManagement">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="employee_id" Type="int" Nullable="false" />
+          <Property Name="from_date" Type="datetime" Nullable="false" />
+          <Property Name="to_date" Type="datetime" Nullable="false" />
+          <Property Name="is_canceled" Type="bit" Nullable="false" />
+          <Property Name="is_approved" Type="bit" Nullable="false" />
+          <Property Name="created_on" Type="datetime" Nullable="false" />
+          <Property Name="created_by" Type="varchar" MaxLength="10" />
+          <Property Name="updated_on" Type="datetime" />
+          <Property Name="updated_by" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="100" />
+          <Property Name="created_on" Type="datetime" Nullable="false" />
+          <Property Name="employee_id" Type="int" />
+          <Property Name="role" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK_Employee_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="department_id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="department_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Designation">
+          <End Role="Designation" Type="Self.Designation" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Designation">
+              <PropertyRef Name="designation_id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="designation_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HolidayManagement_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="HolidayManagement" Type="Self.HolidayManagement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="employee_id" />
+            </Principal>
+            <Dependent Role="HolidayManagement">
+              <PropertyRef Name="employee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="employee_id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="employee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StraightWallsModelStoreContainer">
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Designation" EntityType="Self.Designation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HolidayManagement" EntityType="Self.HolidayManagement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Employee_Department" Association="Self.FK_Employee_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Designation" Association="Self.FK_Employee_Designation">
+            <End Role="Designation" EntitySet="Designation" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HolidayManagement_Employee" Association="Self.FK_HolidayManagement_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="HolidayManagement" EntitySet="HolidayManagement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Employee" Association="Self.FK_Users_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="StraightWallsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="StraightWallsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Departments" EntityType="StraightWallsModel.Department" />
+          <EntitySet Name="Designations" EntityType="StraightWallsModel.Designation" />
+          <EntitySet Name="Employees" EntityType="StraightWallsModel.Employee" />
+          <EntitySet Name="HolidayManagements" EntityType="StraightWallsModel.HolidayManagement" />
+          <AssociationSet Name="FK_Employee_Department" Association="StraightWallsModel.FK_Employee_Department">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Designation" Association="StraightWallsModel.FK_Employee_Designation">
+            <End Role="Designation" EntitySet="Designations" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HolidayManagement_Employee" Association="StraightWallsModel.FK_HolidayManagement_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="HolidayManagement" EntitySet="HolidayManagements" />
+          </AssociationSet>
+          <EntitySet Name="Users" EntityType="StraightWallsModel.User" />
+          <AssociationSet Name="FK_Users_Employee" Association="StraightWallsModel.FK_Users_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="department_id" />
+          </Key>
+          <Property Name="department_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employees" Relationship="StraightWallsModel.FK_Employee_Department" FromRole="Department" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Designation">
+          <Key>
+            <PropertyRef Name="designation_id" />
+          </Key>
+          <Property Name="designation_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employees" Relationship="StraightWallsModel.FK_Employee_Designation" FromRole="Designation" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="employee_id" />
+          </Key>
+          <Property Name="employee_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="mobile" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="join_date" Type="DateTime" Precision="0" />
+          <Property Name="department_id" Type="Int32" />
+          <Property Name="designation_id" Type="Int32" />
+          <Property Name="is_active" Type="Boolean" />
+          <NavigationProperty Name="Department" Relationship="StraightWallsModel.FK_Employee_Department" FromRole="Employee" ToRole="Department" />
+          <NavigationProperty Name="Designation" Relationship="StraightWallsModel.FK_Employee_Designation" FromRole="Employee" ToRole="Designation" />
+          <NavigationProperty Name="HolidayManagements" Relationship="StraightWallsModel.FK_HolidayManagement_Employee" FromRole="Employee" ToRole="HolidayManagement" />
+          <NavigationProperty Name="Users" Relationship="StraightWallsModel.FK_Users_Employee" FromRole="Employee" ToRole="User" />
+        </EntityType>
+        <EntityType Name="HolidayManagement">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="employee_id" Type="Int32" Nullable="false" />
+          <Property Name="from_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="to_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="is_canceled" Type="Boolean" Nullable="false" />
+          <Property Name="is_approved" Type="Boolean" Nullable="false" />
+          <Property Name="created_on" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="created_by" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="updated_on" Type="DateTime" Precision="3" />
+          <Property Name="updated_by" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employee" Relationship="StraightWallsModel.FK_HolidayManagement_Employee" FromRole="HolidayManagement" ToRole="Employee" />
+        </EntityType>
+        <Association Name="FK_Employee_Department">
+          <End Type="StraightWallsModel.Department" Role="Department" Multiplicity="0..1" />
+          <End Type="StraightWallsModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="department_id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="department_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Designation">
+          <End Type="StraightWallsModel.Designation" Role="Designation" Multiplicity="0..1" />
+          <End Type="StraightWallsModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Designation">
+              <PropertyRef Name="designation_id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="designation_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HolidayManagement_Employee">
+          <End Type="StraightWallsModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="StraightWallsModel.HolidayManagement" Role="HolidayManagement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="employee_id" />
+            </Principal>
+            <Dependent Role="HolidayManagement">
+              <PropertyRef Name="employee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="created_on" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="employee_id" Type="Int32" />
+          <Property Name="role" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employee" Relationship="StraightWallsModel.FK_Users_Employee" FromRole="User" ToRole="Employee" />
+        </EntityType>
+        <Association Name="FK_Users_Employee">
+          <End Type="StraightWallsModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="StraightWallsModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="employee_id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="employee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="StraightWallsModelStoreContainer" CdmEntityContainer="StraightWallsEntities">
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="StraightWallsModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Designations">
+            <EntityTypeMapping TypeName="StraightWallsModel.Designation">
+              <MappingFragment StoreEntitySet="Designation">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="designation_id" ColumnName="designation_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="StraightWallsModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="designation_id" ColumnName="designation_id" />
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
+                <ScalarProperty Name="join_date" ColumnName="join_date" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HolidayManagements">
+            <EntityTypeMapping TypeName="StraightWallsModel.HolidayManagement">
+              <MappingFragment StoreEntitySet="HolidayManagement">
+                <ScalarProperty Name="updated_by" ColumnName="updated_by" />
+                <ScalarProperty Name="updated_on" ColumnName="updated_on" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="created_on" ColumnName="created_on" />
+                <ScalarProperty Name="is_approved" ColumnName="is_approved" />
+                <ScalarProperty Name="is_canceled" ColumnName="is_canceled" />
+                <ScalarProperty Name="to_date" ColumnName="to_date" />
+                <ScalarProperty Name="from_date" ColumnName="from_date" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="StraightWallsModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="created_on" ColumnName="created_on" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
